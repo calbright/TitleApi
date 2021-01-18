@@ -10,7 +10,7 @@ namespace TitleApi.Contracts
     public interface ITitleService
     {
         public Task<IEnumerable<Title>> GetTitlesAsync();
-        public Task<IEnumerable<Title>> SearchByNameAsyc(SearchTitleModel model);
-        public Task<IEnumerable<TitleGenreDetails>> GetGenresByTitleIdAsync(int titleId);
+        public Task<IEnumerable<Title>> SearchByNameAsyc(string searchString);
+        public Task<IEnumerable<OtherName>> GetOtherTitleByTitleIdAsync(int titleId);
     }
 }

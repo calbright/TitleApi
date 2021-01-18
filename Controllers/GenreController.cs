@@ -15,20 +15,20 @@ namespace TitleApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AwardController : ControllerBase
+    public class GenreController : ControllerBase
     {
         private readonly ILogger<TitleController> _logger;
-        private readonly IAwardService _awardService;
-        public AwardController(ILogger<TitleController> logger, IAwardService awardService)
+        private readonly IGenreService _genreService;
+        public GenreController(ILogger<TitleController> logger, IGenreService genreService)
         {
             _logger = logger;
-            _awardService = awardService;
+            _genreService = genreService;
         }
 
-        [HttpGet("/award/{titleId}")]
-        public async Task<IEnumerable<Award>> GetAwardByTitleId([FromRoute] int titleId)
+        [HttpGet("/{titleId}")]
+        public async Task<IEnumerable<TitleGenreDetails>> GetGenresByTitleIdAsync([FromRoute] int titleId)
         {
-            var result = await _awardService.GetAwardsByTitleIdAsync(titleId);
+            var result = await _genreService.GetGenresByTitleIdAsync(titleId);
             return result;
         }
     }

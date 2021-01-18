@@ -28,12 +28,22 @@ namespace TitleApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddDbContext<TitlesContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSingleton<ITitleService, TitleService>();
-            services.AddSingleton<IAwardService, AwardService>();
+            services.AddTransient<ITitleService, TitleService>();
+            services.AddTransient<IAwardService, AwardService>();
+            services.AddTransient<IStoryLineService, StoryLineService>();
+            services.AddTransient<IGenreService, GenreService>();
         }
 
 
@@ -43,6 +53,7 @@ namespace TitleApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("CorsPolicy");
             }
             app.UseSwagger();
             app.UseSwaggerUI(c =>

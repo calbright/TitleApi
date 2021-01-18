@@ -24,23 +24,22 @@ namespace TitleApi.Controllers
             _logger = logger;
             _titleService = titleService;
         }
-
-        [HttpGet]
-        public async Task<IEnumerable<Title>> Get()
+        [HttpGet("/titles")]
+        public async Task<IEnumerable<Title>> GetAllTitles()
         {
             var result = await _titleService.GetTitlesAsync();
             return result;
         }
-        [HttpPut]
-        public async Task<IEnumerable<Title>> Put([FromBody] SearchTitleModel model)
+        [HttpGet("/title/{searchstring}")]
+        public async Task<IEnumerable<Title>> GetByTitle([FromRoute] string searchstring)
         {
-            var result = await _titleService.SearchByNameAsyc(model);
+            var result = await _titleService.SearchByNameAsyc(searchstring);
             return result;
         }
-        [HttpPut("/genre/{titleId}")]
-        public async Task<IEnumerable<TitleGenreDetails>> Put([FromRoute] int titleId)
+        [HttpGet("/otherName/{titleId}")]
+        public async Task<IEnumerable<OtherName>> GetOtherTitleByTitleId([FromRoute] int titleId)
         {
-            var result = await _titleService.GetGenresByTitleIdAsync(titleId);
+            var result = await _titleService.GetOtherTitleByTitleIdAsync(titleId);
             return result;
         }
     }
