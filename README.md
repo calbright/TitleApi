@@ -2,6 +2,12 @@
 This is the backend data and api layer for my Marketplace code.
 # Title API
 Rest endpoints for all DB entities
+# Title Data
+DAL needs to be cloned to same directory as TitleApi and MovieWeb
+Example: d:\CACodingChallenge should contain:
+TitleApi
+TitleData
+Movieweb
 
 # Title Controller
 what I actually ended up using. The nested data was needed to reduce the number of calls made by the web app to essentially 1.
